@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { Text, View, Image } from "react-native";
-import { Redirect ,router } from "expo-router";
+import { Redirect, router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   GestureHandlerRootView,
@@ -10,8 +10,8 @@ import { images } from "../constants";
 import CustomButton from "@/components/CustomButton";
 export default function App() {
   return (
-    <SafeAreaView className="bg-primary h-full">
-      <GestureHandlerRootView className="h-full">
+    <GestureHandlerRootView className="h-full">
+      <SafeAreaView className="bg-primary h-full">
         <ScrollView contentContainerStyle={{ height: "100%" }}>
           <View className="px-4  w-full h-full items-center justify-center ">
             <Image
@@ -42,13 +42,13 @@ export default function App() {
             </Text>
             <CustomButton
               title="Continue wie E-mail"
-              handlePress={() => router.push('/sign_in')}
+              handlePress={() => router.push("/sign_in")}
               containerStyle="w-full mt-7"
             />
           </View>
         </ScrollView>
-        <StatusBar  backgroundColor="#161622" style="light" />
-      </GestureHandlerRootView>
-    </SafeAreaView>
+        <StatusBar backgroundColor="#161622" style="light" />
+      </SafeAreaView>
+    </GestureHandlerRootView>
   );
 }
