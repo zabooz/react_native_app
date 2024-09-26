@@ -1,6 +1,12 @@
 import React from "react";
 import { Tabs } from "expo-router";
-import { View, Image, Text, ImageSourcePropType, StyleSheet } from "react-native";
+import {
+  View,
+  Image,
+  Text,
+  ImageSourcePropType,
+  StyleSheet,
+} from "react-native";
 import icons from "../../constants/icons";
 
 interface TabIconProps {
@@ -13,8 +19,17 @@ interface TabIconProps {
 const TabIcon = ({ icon, color, name, focused }: TabIconProps) => {
   return (
     <View style={styles.iconContainer}>
-      <Image source={icon} resizeMode="contain" style={[styles.icon, { tintColor: color }]} />
-      <Text style={[styles.text, { color: color, fontWeight: focused ? "bold" : "normal" }]}>
+      <Image
+        source={icon}
+        resizeMode="contain"
+        style={[styles.icon, { tintColor: color }]}
+      />
+      <Text
+        style={[
+          styles.text,
+          { color: color, fontWeight: focused ? "bold" : "normal" },
+        ]}
+      >
         {name}
       </Text>
     </View>
@@ -26,12 +41,12 @@ const TabsLayout = () => {
     <Tabs
       screenOptions={{
         tabBarShowLabel: false,
-        tabBarActiveTintColor: '#ffA001',
-        tabBarInactiveTintColor: '#cdcde0',
+        tabBarActiveTintColor: "#ffA001",
+        tabBarInactiveTintColor: "#cdcde0",
         tabBarStyle: {
-          backgroundColor: '#161622',
+          backgroundColor: "#161622",
           borderTopWidth: 1,
-          borderTopColor: '#232533',
+          borderTopColor: "#232533",
           height: 84,
         },
       }}
@@ -49,7 +64,12 @@ const TabsLayout = () => {
             title: title,
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
-              <TabIcon icon={icon} color={color} name={title} focused={focused} />
+              <TabIcon
+                icon={icon}
+                color={color}
+                name={title}
+                focused={focused}
+              />
             ),
           }}
         />
