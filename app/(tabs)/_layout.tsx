@@ -22,7 +22,8 @@ const TabIcon = ({ icon, color, name, focused }: TabIconProps) => {
       <Image
         source={icon}
         resizeMode="contain"
-        style={[styles.icon, { tintColor: color }]}
+        tintColor={color}
+        style={[styles.icon]}
       />
       <Text
         style={[

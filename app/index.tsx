@@ -2,13 +2,22 @@ import { StatusBar } from "expo-status-bar";
 import { Text, View, Image } from "react-native";
 import { Redirect, router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
+import "react-native-url-polyfill/auto";
 import {
   GestureHandlerRootView,
   ScrollView,
 } from "react-native-gesture-handler";
 import { images } from "../constants";
 import CustomButton from "@/components/CustomButton";
+import { useGlobalContext } from "@/context/GlobalProvider";
+import { useEffect } from "react";
 export default function App() {
+  const { isLoading, isLoggedIn } = useGlobalContext();
+
+  if (!isLoading && !isLoggedIn) {
+    return <Redirect href="/home" />;
+  }
+  console.log(isLoggedIn);
   return (
     <GestureHandlerRootView className="h-full">
       <SafeAreaView className="bg-primary h-full">
@@ -47,8 +56,8 @@ export default function App() {
             />
           </View>
         </ScrollView>
-        <StatusBar backgroundColor="#161622" style="light" />
       </SafeAreaView>
+      <StatusBar backgroundColor="#161622" style="light" />
     </GestureHandlerRootView>
   );
 }

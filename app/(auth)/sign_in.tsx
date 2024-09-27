@@ -1,4 +1,4 @@
-import { Text, View, Image } from "react-native";
+import { Text, View, Image, Alert } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
@@ -8,18 +8,37 @@ import {
 import { images } from "@/constants";
 import FormField from "@/components/FormField";
 import CustomButton from "@/components/CustomButton";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
+import { getCurrentUser, signIn } from "@/lib/appwrite";
+import { useGlobalContext } from "@/context/GlobalProvider";
 const Sign_in = () => {
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const submit = () => {
+  const { setIsLoggedIn, setUser } = useGlobalContext();
+
+  const submit = async () => {
+    if (!form.email || !form.password) {
+      Alert.alert("Please fill in all fields");
+      return;
+    }
     setIsSubmitting(true);
-    setTimeout(() => {
+    try {
+
+      await signIn(form.email, form.password);
+      const result = await getCurrentUser();
+      console.log(result);
+      setUser(result);
+      setIsLoggedIn(true);
+      Alert.alert("Sign in successful");
+      router.replace("/home");
+    } catch (error) {
+      console.log(error);
+    } finally {
       setIsSubmitting(false);
-    }, 3000);
+    }
   };
 
   return (
@@ -57,11 +76,15 @@ const Sign_in = () => {
               isLoading={isSubmitting}
             />
             <View className="justify-center pt-5 flex-row">
-              <Text className="text-lg text-gray-100 font-pregular">Don't have an account? </Text>
-              <Link href="/sign_up" className="text-lg font-psemibold text-secondary">
-              Sign up
+              <Text className="text-lg text-gray-100 font-pregular">
+                Don't have an account?{" "}
+              </Text>
+              <Link
+                href="/sign_up"
+                className="text-lg font-psemibold text-secondary"
+              >
+                Sign up
               </Link>
-
             </View>
           </View>
         </ScrollView>
